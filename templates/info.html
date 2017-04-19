@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Information About You
+{% endblock %}
+
+{% block content %}
+	<h2> Welcome {{ firstname }} {{ lastname }} </h2>
+	<h2> Here are some results we have found </h2>
+	{% if diseases_names %}
+
+		{% for disease in diseases_names %}
+			<h3> For the disease {{ disease }}, here are some people with the same symptoms</h3>
+			<ul>
+				{% for sample in qR %}
+					<li> {{ sample['name'] }} </li>
+				{% endfor %}
+			</ul>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
