@@ -7,13 +7,14 @@ Information About You
 {% block content %}
 	<h2> Welcome {{ firstname }} {{ lastname }} </h2>
 	<h2> Here are some results we have found </h2>
-	{% if diseases_names %}
+	{% if qR %}
 
-		{% for disease in diseases_names %}
-			<h3> For the disease {{ disease }}, here are some people with the same symptoms</h3>
+		{% for key, value in qR.items() %}
+		<!-- {% set samples = value %} -->
+			<h3> For the disease {{ key }}, here are some people with the same symptoms </h3>
 			<ul>
-				{% for sample in qR %}
-					<li> {{ sample['name'] }} </li>
+				{% for sample in value %} 
+					<li><a href=""> {{ sample['name'] }} </a></li>
 				{% endfor %}
 			</ul>
 		{% endfor %}

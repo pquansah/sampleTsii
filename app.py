@@ -27,10 +27,21 @@ def index():
 def info():
 	diseases_names = request.args.getlist('diseases_names') # includes the list of diseases that the user entered into the index page
 	people = mongo.db.people
-	queryResult = people.find({"health metrics" : {"$all" : [diseases_names[0]]}})
+	disease_dict = {}
+	# list_of_queries =[]
+	# for disease in diseases_names:
+	# 	queryResult = people.find({"health metrics" : {"$all" : disease}})
+	# 	list_of_queries.append(queryResult)
+
+	for disease in diseases_names:
+		queryResult = people.find({"health metrics" : {"$all" : [disease]}})
+		disease_dict[disease] = queryResult
+
+
+
 	# for atom in sample:
 	# 	print atom['name']
-	return render_template('info.html', firstname=request.args.get('firstname'), lastname=request.args.get('lastname'), age=request.args.get('age'), diseases_names=request.args.getlist('diseases_names'), qR=queryResult)
+	return render_template('info.html', firstname=request.args.get('firstname'), lastname=request.args.get('lastname'), age=request.args.get('age'), diseases_names=request.args.getlist('diseases_names'), qR=disease_dict)
 
 
 
