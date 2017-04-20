@@ -22,6 +22,15 @@ def index():
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
 	return render_template('index.html', diseases=diseases)
 
+@app.route('/personalInfo', methods=['GET', 'POST'])
+def personalInfo():
+	person = request.args.get('samplePerson')
+	ageOfPerson = request.args.get('sampleAge')
+	print("Hello")
+	print(person)
+
+	return render_template('personalInfo.html', poi=person, age=ageOfPerson)
+
 
 @app.route('/info', methods=['GET', 'POST'])
 def info():
