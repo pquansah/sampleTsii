@@ -8,13 +8,12 @@ Information About You
 	<h2> Welcome {{ firstname }} {{ lastname }} </h2>
 	<h2> Here are some results we have found </h2>
 	{% if qR %}
-
 		{% for key, value in qR.items() %}
 		<!-- {% set samples = value %} -->
 			<h3> For the disease {{ key }}, here are some people with the same symptoms </h3>
 			<ul>
 				{% for sample in value %} 
-					<li><a href=""> {{ sample['name'] }} </a></li>
+					<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age']) }}"> {{ sample['name'] }} </a></li>
 				{% endfor %}
 			</ul>
 		{% endfor %}
