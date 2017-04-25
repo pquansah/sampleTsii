@@ -8,9 +8,20 @@ Personal Information
 {% block content %}
 	<h2> Hello, my name is {{ poi }}, and I am {{ age }} years old </h2>
 	<h3> Here are some quick facts about me </h3>
+	<ul>
+		<li> I am from {{ city }}, {{ state }} </li>
+	</ul>	
 	<br/>
 	<br/>
 	<h2> Testimonial </h2>
 	<p> {{ testimonial }} </p>
+	<br/>
+	<br/>
+	<h2> Gallery </h2>
+
+	
+	<img src="{{ image }}" height="300" width="400"/>
+	
+	
 
 {% endblock %}

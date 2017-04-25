@@ -13,7 +13,7 @@ Information About You
 			<h3> For the disease {{ key }}, here are some people with the same symptoms </h3>
 			<ul>
 				{% for sample in value %} 
-					<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age']) }}"> {{ sample['name'] }} </a></li>
+					<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age'], sampleCity = sample['city'], sampleState = sample['state']) }}"> {{ sample['name'] }} </a></li>
 				{% endfor %}
 			</ul>
 		{% endfor %}

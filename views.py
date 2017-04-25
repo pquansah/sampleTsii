@@ -11,6 +11,8 @@ mongo = PyMongo(app)
 diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopecia', 'Angina', 'Asthma', 'Atherosclerosis',
 'ADHD', 'ASD', 'Autoimmune Disease', 'Blood clots', 'Brain Fog']
 
+# from . import app, mongo, diseases
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -26,14 +28,16 @@ def index():
 def personalInfo():
 	person = request.args.get('samplePerson')
 	ageOfPerson = request.args.get('sampleAge')
-	testimonial = mongo.db.testimonial
-	queryResult = testimonial.find({"name" : person})
+	city = request.args.get('sampleCity')
+	state = request.args.get('sampleState')
+	queryResult = mongo.db.testimonial.find({"name" : person})
 	
 	for sample in queryResult:
 		actualTestimonial = sample['testimonial']
+		img = sample['image']
 
 	
-	return render_template('personalInfo.html', poi=person, age=ageOfPerson, testimonial=actualTestimonial)
+	return render_template('personalInfo.html', poi=person, age=ageOfPerson, testimonial=actualTestimonial, image=img, city=city, state=state)
 
 
 @app.route('/info', methods=['GET', 'POST'])
