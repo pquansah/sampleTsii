@@ -26,10 +26,14 @@ def index():
 def personalInfo():
 	person = request.args.get('samplePerson')
 	ageOfPerson = request.args.get('sampleAge')
-	print("Hello")
-	print(person)
+	testimonial = mongo.db.testimonial
+	queryResult = testimonial.find({"name" : person})
+	
+	for sample in queryResult:
+		actualTestimonial = sample['testimonial']
 
-	return render_template('personalInfo.html', poi=person, age=ageOfPerson)
+	
+	return render_template('personalInfo.html', poi=person, age=ageOfPerson, testimonial=actualTestimonial)
 
 
 @app.route('/info', methods=['GET', 'POST'])
