@@ -12,7 +12,17 @@ Enter Information
 		Last name:<br>
 		<input type="text" name="lastname"><br>
 		Age:<br>
-		<input type="number" name="age"><br><br>
+		<input type="number" name="age"><br>
+		Phone Number:<br>
+		<input type="text" name="phonenumber"><br>
+		Email:<br>
+		<input type="text" name="email"><br>
+		City:<br>
+		<input type="text" name="city"><br>
+		State:<br>
+		<input type="text" name="state"><br>
+		Zip:<br>
+		<input type="text" name="zip"><br><br>
 		{% if diseases %}
 			{% for disease in diseases %}
 				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}

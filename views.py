@@ -20,9 +20,19 @@ def index():
 		fname = request.form['firstname']
 		lname = request.form['lastname']
 		age = request.form['age']
+		phone_number = request.form['phonenumber']
+		email = request.form['email']
+		city = request.form['city']
+		state = request.form['state']
+		zip_code = request.form['zip']
+
+
 		diseases_name = request.form.getlist('disease_name')
+		mongo.db.people.insert({"name" : fname + " " + lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name})
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
+		
 	return render_template('index.html', diseases=diseases)
+
 
 @app.route('/personalInfo', methods=['GET', 'POST'])
 def personalInfo():
@@ -38,6 +48,7 @@ def personalInfo():
 
 	
 	return render_template('personalInfo.html', poi=person, age=ageOfPerson, testimonial=actualTestimonial, image=img, city=city, state=state)
+
 
 
 @app.route('/info', methods=['GET', 'POST'])
