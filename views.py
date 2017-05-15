@@ -15,6 +15,19 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	if request.method == "POST":
+		email = request.form['email']
+		password = request.form['password']
+		people = mongo.db.people
+		person = people.find({"email" : email})
+
+		for sample in person:
+			diseases = sample['health metrics']
+			firstname = sample['fname']
+			lastname = sample['lname']
+			age = sample['age']
+
+		return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
 	return render_template('login.html')
 
 
@@ -38,7 +51,7 @@ def index():
 
 
 		diseases_name = request.form.getlist('disease_name')
-		mongo.db.people.insert({"name" : fname + " " + lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name, "password" : password})
+		mongo.db.people.insert({"fname" : fname, "lname" : lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name, "password" : password})
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
 		
 	return render_template('signup.html', diseases=diseases)
