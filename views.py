@@ -13,12 +13,17 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 
 # from . import app, mongo, diseases
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	return render_template('login.html')
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def home():
 	return render_template('home.html')
 
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def index():
 	if request.method == "POST":
 		fname = request.form['firstname']
@@ -29,13 +34,14 @@ def index():
 		city = request.form['city']
 		state = request.form['state']
 		zip_code = request.form['zip']
+		password = request.form['password']
 
 
 		diseases_name = request.form.getlist('disease_name')
-		mongo.db.people.insert({"name" : fname + " " + lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name})
+		mongo.db.people.insert({"name" : fname + " " + lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name, "password" : password})
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
 		
-	return render_template('index.html', diseases=diseases)
+	return render_template('signup.html', diseases=diseases)
 
 
 @app.route('/personalInfo', methods=['GET', 'POST'])

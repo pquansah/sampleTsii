@@ -27,7 +27,9 @@ Enter Information
 		State:<br>
 		<input type="text" name="state"><br>
 		Zip:<br>
-		<input type="text" name="zip"><br><br>
+		<input type="text" name="zip"><br>
+		Password:<br>
+		<input type="password" name="password"><br><br>
 		{% if diseases %}
 			{% for disease in diseases %}
 				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}
