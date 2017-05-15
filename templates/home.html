@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+<body style="background-color: black;">
+	<div class="container-fluid">
+		<div class="row">
+		 <div class="span4"></div>
+		 <div class="span4"><img class="center-block" src="{{ url_for('static', filename='images/trusiipic.PNG') }}" /></div>
+		 <div class="span4"></div>
+		</div>
+	</div>
+	<br></br>
+	<button type="button" class="btn btn-default btn-block center-block">SignUp</button>
+	<br></br>
+	<br></br>
+	<button type="button" class="btn btn-primary btn-block center-block">Login</button>
+</body>
+{% endblock %}

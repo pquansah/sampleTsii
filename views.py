@@ -14,6 +14,10 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 # from . import app, mongo, diseases
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+	return render_template('home.html')
+
 @app.route('/index', methods=['GET', 'POST'])
 def index():
 	if request.method == "POST":
