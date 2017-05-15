@@ -12,8 +12,10 @@ Information About You
 		<!-- {% set samples = value %} -->
 			<h3> For the disease {{ key }}, here are some people with the same symptoms </h3>
 			<ul>
-				{% for sample in value %} 
-					<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age'], sampleCity = sample['city'], sampleState = sample['state']) }}"> {{ sample['name'] }} </a></li>
+				{% for sample in value %}
+					{% if sample['name'] != (firstname + " " + lastname) %} 
+						<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age'], sampleCity = sample['city'], sampleState = sample['state']) }}"> {{ sample['name'] }} </a></li>
+					{% endif %}
 				{% endfor %}
 			</ul>
 		{% endfor %}
