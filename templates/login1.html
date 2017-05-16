@@ -13,8 +13,19 @@ Login Information
 		{{ render_field(applicant_form.fname) }}
 		{{ render_field(applicant_form.lname) }}
 		{{ render_field(applicant_form.email) }}
+		{{ render_field(applicant_form.age) }}
 		{{ render_field(applicant_form.city) }}
+		{{ render_field(applicant_form.state) }}
+		{{ render_field(applicant_form.zip_code) }}
+		{{ render_field(applicant_form.phone_number) }}
 		{{ render_field(applicant_form.password) }}
+		<h2> Check all that apply to you </h2>
+		{% if diseases %}
+			{% for disease in diseases %}
+				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}
+			{% endfor %}
+		{% endif %}
+		<br><br><br>
 		{{ applicant_form.submit }}
 	</form>
 {% endblock %}

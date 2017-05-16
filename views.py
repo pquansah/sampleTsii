@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
-from forms import ApplicantForm
+from forms import ApplicantForm, LoginForm
 
 
 app = Flask(__name__)
@@ -13,22 +13,14 @@ mongo = PyMongo(app)
 diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopecia', 'Angina', 'Asthma', 'Atherosclerosis',
 'ADHD', 'ASD', 'Autoimmune Disease', 'Blood clots', 'Brain Fog']
 
-# from . import app, mongo, diseases
-@app.route('/login1', methods=['GET', 'POST'])
-def login1():
-	applicant_form = ApplicantForm()
-	if applicant_form.validate_on_submit():
-		return 'Form Sucessfully Submitted'
-	return render_template('login1.html', applicant_form=applicant_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	login_form = LoginForm()
 	if request.method == "POST":
-		email = request.form['email']
-		password = request.form['password']
-		people = mongo.db.people
-		person = people.find({"email" : email})
-
+		email = login_form.email.data
+		password = login_form.password.data
+		person = mongo.db.people.find({"email" : email})
 		for sample in person:
 			diseases = sample['health metrics']
 			firstname = sample['fname']
@@ -36,7 +28,8 @@ def login():
 			age = sample['age']
 
 		return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
-	return render_template('login.html')
+
+	return render_template('login.html', login_form=login_form)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -46,23 +39,24 @@ def home():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def index():
-	if request.method == "POST":
-		fname = request.form['firstname']
-		lname = request.form['lastname']
-		age = request.form['age']
-		phone_number = request.form['phonenumber']
-		email = request.form['email']
-		city = request.form['city']
-		state = request.form['state']
-		zip_code = request.form['zip']
-		password = request.form['password']
+	applicant_form = ApplicantForm()
+	if applicant_form.validate_on_submit():
+		fname = applicant_form.fname.data
+		lname = applicant_form.lname.data
+		age = applicant_form.age.data
+		phone_number = applicant_form.phone_number.data
+		email = applicant_form.email.data
+		city = applicant_form.city.data
+		state = applicant_form.state.data
+		zip_code = applicant_form.zip_code.data
+		password = applicant_form.password.data
 
 
 		diseases_name = request.form.getlist('disease_name')
 		mongo.db.people.insert({"fname" : fname, "lname" : lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name, "password" : password})
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
-		
-	return render_template('signup.html', diseases=diseases)
+
+	return render_template('login1.html', applicant_form=applicant_form, diseases=diseases)
 
 
 @app.route('/personalInfo', methods=['GET', 'POST'])
