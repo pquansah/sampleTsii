@@ -1,17 +1,25 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
+from forms import ApplicantForm
+
 
 app = Flask(__name__)
 
 app.config['MONGOALCHEMY_DATABASE'] = 'sampletsii'
 app.config['MONGO_URI'] = 'mongodb://tsii:Qazyhnol9@ds161890.mlab.com:61890/sampletsii'
-
+app.config['SECRET_KEY'] = '435897348y348f3784hf7'
 
 mongo = PyMongo(app)
 diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopecia', 'Angina', 'Asthma', 'Atherosclerosis',
 'ADHD', 'ASD', 'Autoimmune Disease', 'Blood clots', 'Brain Fog']
 
 # from . import app, mongo, diseases
+@app.route('/login1', methods=['GET', 'POST'])
+def login1():
+	applicant_form = ApplicantForm()
+	if applicant_form.validate_on_submit():
+		return 'Form Sucessfully Submitted'
+	return render_template('login1.html', applicant_form=applicant_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

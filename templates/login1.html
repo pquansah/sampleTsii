@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "form_macros.html" import render_field %}
+
+{% block title %}
+Login Information
+{% endblock %}
+
+
+{% block content %}
+<h1>App Form</h1>
+	<form method="post">
+		{{ applicant_form.hidden_tag() }}
+		{{ render_field(applicant_form.fname) }}
+		{{ render_field(applicant_form.lname) }}
+		{{ render_field(applicant_form.email) }}
+		{{ render_field(applicant_form.city) }}
+		{{ render_field(applicant_form.password) }}
+		{{ applicant_form.submit }}
+	</form>
+{% endblock %}
