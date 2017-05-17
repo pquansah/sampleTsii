@@ -12,32 +12,23 @@ Enter Information
 	</div>
 	<h2> Your Information </h2>
 	<form action="" method="post">
-		First name:<br>
-		<input type="text" name="firstname"><br>
-		Last name:<br>
-		<input type="text" name="lastname"><br>
-		Age:<br>
-		<input type="number" name="age"><br>
-		Phone Number:<br>
-		<input type="text" name="phonenumber"><br>
-		Email:<br>
-		<input type="text" name="email"><br>
-		City:<br>
-		<input type="text" name="city"><br>
-		State:<br>
-		<input type="text" name="state"><br>
-		Zip:<br>
-		<input type="text" name="zip"><br>
-		Password:<br>
-		<input type="password" name="password"><br><br>
+		{{ applicant_form.hidden_tag() }}
+		{{ render_field(applicant_form.fname) }}
+		{{ render_field(applicant_form.lname) }}
+		{{ render_field(applicant_form.email) }}
+		{{ render_field(applicant_form.age) }}
+		{{ render_field(applicant_form.city) }}
+		{{ render_field(applicant_form.state) }}
+		{{ render_field(applicant_form.zip_code) }}
+		{{ render_field(applicant_form.phone_number) }}
+		{{ render_field(applicant_form.password) }}
+		<h2> Check all that apply to you </h2>
 		{% if diseases %}
 			{% for disease in diseases %}
 				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}
 			{% endfor %}
 		{% endif %}
-		<br><br>
-		
-		<input type="submit" value="Submit">
-		<input type="reset">
+		<br><br><br>
+		{{ applicant_form.submit }}
 	</form>
 {% endblock %}

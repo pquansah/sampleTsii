@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% from "form_macros.html" import render_field %}
 
 {% block title %}
 Login Page
@@ -7,11 +7,13 @@ Login Page
 
 
 {% block content %}
-	<form action="" method="post">
-		Email:<br>
-		<input type="text" name="email"><br>
-		Password:<br>
-		<input type="password" name="password"><br><br>
-		<input type="submit" value="Login">
+<h1> Welcome, Please Login </h1>
+{% if message %}
+	<h2 style="color: red;"> {{ message }} </h2>
+{% endif %}
+	<form method="post">
+		{{ render_field(login_form.email) }}
+		{{ render_field(login_form.password) }}
+		{{ login_form.submit }}
 	</form>
 {% endblock %}
