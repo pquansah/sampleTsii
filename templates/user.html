@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+	<h1> Welcome, {{ fname }} {{ lname }} </h1>
+	<a href="{{ url_for('info', firstname=fname, lastname=lname, age=age_of_person, diseases_names=diseases) }}">Profile</a>
+{% endblock %}

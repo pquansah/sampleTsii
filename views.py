@@ -31,8 +31,8 @@ def login():
 			real_password = sample['password']
 
 		if check_password_hash(real_password, password):
-			return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
-
+			# return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
+			return redirect(url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
 		else:
 			message = 'Invalid Username or Password'
 
@@ -103,7 +103,14 @@ def info():
 	# 	print atom['name']
 	return render_template('info.html', firstname=request.args.get('firstname'), lastname=request.args.get('lastname'), age=request.args.get('age'), diseases_names=request.args.getlist('diseases_names'), qR=disease_dict)
 
+@app.route('/user', methods=['GET', 'POST'])
+def user():
+	firstname = request.args.get('firstname')
+	lastname = request.args.get('lastname')
+	diseases_names = request.args.getlist('diseases_names')
+	age_of_person = request.args.get('age')
 
+	return render_template('user.html', fname=firstname, lname=lastname, age=age_of_person, diseases=diseases_names)
 
 if __name__ == '__main__':
 	app.run(debug=True)
