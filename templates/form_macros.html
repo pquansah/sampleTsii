@@ -1,0 +1,18 @@
+{% macro render_field(field) %}
+  {% if field.errors %}
+    <div class="form-group">
+    {{ field.label(class="error") }}<span class="tiny-text">{{ field.render_kw.subtitle }}</span>
+  {% else %}
+    <div class="form-group">
+    {% if not "no_label" in kwargs %}{{ field.label }} <span class="tiny-text">{{ field.render_kw.subtitle }}</span>{% endif %}{% if 'required' in field.flags or 'lost_and_found' in field.flags %}<span style="color:red">*</span>{% endif %}
+  {% endif %}
+{{ field(**kwargs)|safe }}
+{% if field.errors %}
+  <ul>
+    {% for error in field.errors %}
+      <li style="color:red">{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</div>
+{% endmacro %}

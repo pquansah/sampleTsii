@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+	<h1> Welcome, {{ fname }} {{ lname }} </h1>
+	<div style="display: inline;">
+		<a href="{{ url_for('info', firstname=fname, lastname=lname, age=age_of_person, diseases_names=diseases) }}">Matches</a>
+		<a href="{{ url_for('edit', firstname=fname, lastname=lname, age=age_of_person, diseases_names=diseases) }}">Edit</a>
+	</div>
+
+{% endblock %}

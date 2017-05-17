@@ -5,24 +5,26 @@ Enter Information
 {% endblock %}
 
 {% block content %}
-<body style="background-color: black;">
 	<div class="container-fluid">
 		<div class="row">
 		 <img src="{{ url_for('static', filename='images/trusiipic.PNG') }}" class="img-responsive center">
 		</div>
 	</div>
-	<h2> Your Information </h2>
+	<h2> Edit Your Information </h2>
+	
+	{% if message %}
+		<h2 style="color: green;"> {{ message }} </h2>
+	{% endif %}
+
 	<form class="form-signin" action="" method="post">
-		{{ applicant_form.hidden_tag() }}
-		{{ wtf.form_field(applicant_form.fname) }}
-		{{ wtf.form_field(applicant_form.lname) }}
-		{{ wtf.form_field(applicant_form.email) }}
-		{{ wtf.form_field(applicant_form.age) }}
-		{{ wtf.form_field(applicant_form.city) }}
-		{{ wtf.form_field(applicant_form.state) }}
-		{{ wtf.form_field(applicant_form.zip_code) }}
-		{{ wtf.form_field(applicant_form.phone_number) }}
-		{{ wtf.form_field(applicant_form.password) }}
+		{{ edit_form.hidden_tag() }}
+		{{ wtf.form_field(edit_form.name) }}
+		{{ wtf.form_field(edit_form.email) }}
+		{{ wtf.form_field(edit_form.age) }}
+		{{ wtf.form_field(edit_form.city) }}
+		{{ wtf.form_field(edit_form.state) }}
+		{{ wtf.form_field(edit_form.zip_code) }}
+		{{ wtf.form_field(edit_form.phone_number) }}
 		<h2> Check all that apply to you </h2>
 		{% if diseases %}
 			{% for disease in diseases %}
@@ -30,7 +32,6 @@ Enter Information
 			{% endfor %}
 		{% endif %}
 		<br><br><br>
-		{{ applicant_form.submit }}
+		{{ edit_form.submit }}
 	</form>
-</body>
 {% endblock %}
