@@ -11,10 +11,14 @@ Enter Information
 		</div>
 	</div>
 	<h2> Edit Your Information </h2>
+	
+	{% if message %}
+		<h2 style="color: green;"> {{ message }} </h2>
+	{% endif %}
+
 	<form class="form-signin" action="" method="post">
 		{{ edit_form.hidden_tag() }}
-		{{ wtf.form_field(edit_form.fname) }}
-		{{ wtf.form_field(edit_form.lname) }}
+		{{ wtf.form_field(edit_form.name) }}
 		{{ wtf.form_field(edit_form.email) }}
 		{{ wtf.form_field(edit_form.age) }}
 		{{ wtf.form_field(edit_form.city) }}

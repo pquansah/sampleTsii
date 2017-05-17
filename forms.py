@@ -21,8 +21,7 @@ class LoginForm(FlaskForm):
 	submit = SubmitField('Login')
 
 class EditForm(FlaskForm):
-	fname = StringField('First Name', validators=[Optional()])
-	lname = StringField('Last Name', validators=[Optional()])
+	name = StringField('Name (Space in Between First and Last)', validators=[Optional()])
 	email = StringField('Email', validators=[Email(), Optional()])
 	age = IntegerField('Age', validators=[Optional()])
 	city = StringField('City', validators=[Optional()])
