@@ -19,7 +19,7 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 def login():
 	login_form = LoginForm()
 	message = None
-	if request.method == "POST":
+	if login_form.validate_on_submit():
 		email = login_form.email.data
 		password = login_form.password.data
 		person = mongo.db.people.find({"email" : email})
