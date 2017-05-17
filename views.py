@@ -29,7 +29,6 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
 	edit_form = EditForm()
-	message = None
 
 	# perfoming updates on user if he or she gives information
 	if edit_form.validate_on_submit():
@@ -40,9 +39,12 @@ def edit():
 		city = edit_form.city.data
 		state = edit_form.state.data
 		zip_code = edit_form.zip_code.data
+		diseases_name = request.form.getlist('disease_name')
 
 		firstname = request.args.get('firstname')
 		lastname = request.args.get('lastname')
+		
+		diseases_names = request.args.getlist('diseases_names')
 
 		person = mongo.db.people.find({"fname" : firstname})
 
@@ -68,11 +70,18 @@ def edit():
 				mongo.db.people.update({"fname" : firstname}, {"$set" : {"state" : state}})
 			if zip_code != "":
 				mongo.db.people.update({"fname" : firstname}, {"$set" : {"zip" : zip_code}})
+			if diseases_name:
+				 mongo.db.people.update({"fname" : firstname}, {"$set" : {"health metrics" : diseases_name}})
 
 		message = 'Edits successfully submitted'
 
+		if not diseases_name:
+			diseases_name = diseases_names
 
-	return render_template('edit.html', edit_form=edit_form, diseases=request.args.getlist('diseases_names'), message=message)
+		return redirect(url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_name, message=message))
+
+
+	return render_template('edit.html', edit_form=edit_form, diseases=diseases)
 
 # login page, user will need to provide a email and password to login the pages
 @app.route('/login', methods=['GET', 'POST'])
@@ -97,7 +106,7 @@ def login():
 
 		if check_password_hash(real_password, password):
 			# return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
-			return redirect(url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
+			return redirect(url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases, message=None))
 		else:
 			message = 'Invalid Username or Password'
 
@@ -171,8 +180,9 @@ def user():
 	lastname = request.args.get('lastname')
 	diseases_names = request.args.getlist('diseases_names')
 	age_of_person = request.args.get('age')
+	message = request.args.get('message')
 
-	return render_template('user.html', fname=firstname, lname=lastname, age=age_of_person, diseases=diseases_names)
+	return render_template('user.html', fname=firstname, lname=lastname, age=age_of_person, diseases=diseases_names, message=message)
 
 if __name__ == '__main__':
 	app.run(debug=True)
