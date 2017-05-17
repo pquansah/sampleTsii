@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+Enter Information
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+		 <img src="{{ url_for('static', filename='images/trusiipic.PNG') }}" class="img-responsive center">
+		</div>
+	</div>
+	<h2> Edit Your Information </h2>
+	<form class="form-signin" action="" method="post">
+		{{ edit_form.hidden_tag() }}
+		{{ wtf.form_field(edit_form.fname) }}
+		{{ wtf.form_field(edit_form.lname) }}
+		{{ wtf.form_field(edit_form.email) }}
+		{{ wtf.form_field(edit_form.age) }}
+		{{ wtf.form_field(edit_form.city) }}
+		{{ wtf.form_field(edit_form.state) }}
+		{{ wtf.form_field(edit_form.zip_code) }}
+		{{ wtf.form_field(edit_form.phone_number) }}
+		<h2> Check all that apply to you </h2>
+		{% if diseases %}
+			{% for disease in diseases %}
+				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}
+			{% endfor %}
+		{% endif %}
+		<br><br><br>
+		{{ edit_form.submit }}
+	</form>
+{% endblock %}
