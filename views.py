@@ -29,12 +29,50 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
 	edit_form = EditForm()
+	message = None
 
+	# perfoming updates on user if he or she gives information
 	if edit_form.validate_on_submit():
-		pass
+		name = edit_form.name.data
+		age = edit_form.age.data
+		phone_number = edit_form.phone_number.data
+		email = edit_form.email.data
+		city = edit_form.city.data
+		state = edit_form.state.data
+		zip_code = edit_form.zip_code.data
+
+		firstname = request.args.get('firstname')
+		lastname = request.args.get('lastname')
+
+		person = mongo.db.people.find({"fname" : firstname})
+
+		# perfoms updates on fields that have been given information
+		for sample in person:
+			if name != "":
+				name_list = name.split(" ")
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"fname" : name_list[0]}})
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"lname" : name_list[1]}})
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"name" : name}})
+				firstname = name_list[0]
+				lastname = name_list[1]
+
+			if age != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"age" : age}})
+			if phone_number != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"phone number" : phone_number}})
+			if email != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"email" : email}})
+			if city != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"city" : city}})
+			if state != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"state" : state}})
+			if zip_code != "":
+				mongo.db.people.update({"fname" : firstname}, {"$set" : {"zip" : zip_code}})
+
+		message = 'Edits successfully submitted'
 
 
-	return render_template('edit.html', edit_form=edit_form, diseases=request.args.getlist('diseases_names'))
+	return render_template('edit.html', edit_form=edit_form, diseases=request.args.getlist('diseases_names'), message=message)
 
 # login page, user will need to provide a email and password to login the pages
 @app.route('/login', methods=['GET', 'POST'])
