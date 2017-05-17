@@ -5,6 +5,7 @@ Enter Information
 {% endblock %}
 
 {% block content %}
+<body style="background-color: black;">
 	<div class="container-fluid">
 		<div class="row">
 		 <img src="{{ url_for('static', filename='images/trusiipic.PNG') }}" class="img-responsive center">
@@ -40,4 +41,5 @@ Enter Information
 		<input type="submit" value="Submit">
 		<input type="reset">
 	</form>
+</body>
 {% endblock %}
