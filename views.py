@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
 from forms import ApplicantForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	login_form = LoginForm()
+	message = None
 	if request.method == "POST":
 		email = login_form.email.data
 		password = login_form.password.data
@@ -26,10 +28,15 @@ def login():
 			firstname = sample['fname']
 			lastname = sample['lname']
 			age = sample['age']
+			real_password = sample['password']
 
-		return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
+		if check_password_hash(real_password, password):
+			return redirect(url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases))
 
-	return render_template('login.html', login_form=login_form)
+		else:
+			message = 'Invalid Username or Password'
+
+	return render_template('login.html', login_form=login_form, message=message)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -49,14 +56,14 @@ def index():
 		city = applicant_form.city.data
 		state = applicant_form.state.data
 		zip_code = applicant_form.zip_code.data
-		password = applicant_form.password.data
+		password = generate_password_hash(applicant_form.password.data, method='sha256')
 
 
 		diseases_name = request.form.getlist('disease_name')
 		mongo.db.people.insert({"fname" : fname, "lname" : lname, "email" : email, "phone number" : phone_number, "city" : city, "state" : state, "zip" : zip_code, "age" : age, "health metrics" : diseases_name, "password" : password})
 		return redirect(url_for('info', firstname=fname, lastname=lname, age=age, diseases_names=diseases_name))
 
-	return render_template('login1.html', applicant_form=applicant_form, diseases=diseases)
+	return render_template('signup.html', applicant_form=applicant_form, diseases=diseases)
 
 
 @app.route('/personalInfo', methods=['GET', 'POST'])

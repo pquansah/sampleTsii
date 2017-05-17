@@ -8,6 +8,9 @@ Login Page
 
 {% block content %}
 <h1> Welcome, Please Login </h1>
+{% if message %}
+	<h2 style="color: red;"> {{ message }} </h2>
+{% endif %}
 	<form method="post">
 		{{ render_field(login_form.email) }}
 		{{ render_field(login_form.password) }}
