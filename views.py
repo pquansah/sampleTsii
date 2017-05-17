@@ -2,10 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
 from forms import ApplicantForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-
+Bootstrap(app)
 app.config['MONGOALCHEMY_DATABASE'] = 'sampletsii'
 app.config['MONGO_URI'] = 'mongodb://tsii:Qazyhnol9@ds161890.mlab.com:61890/sampletsii'
 app.config['SECRET_KEY'] = '435897348y348f3784hf7'

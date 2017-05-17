@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% from "form_macros.html" import render_field %}
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}
 Enter Information
 {% endblock %}
@@ -11,17 +11,17 @@ Enter Information
 		</div>
 	</div>
 	<h2> Your Information </h2>
-	<form action="" method="post">
+	<form class="form-signin" action="" method="post">
 		{{ applicant_form.hidden_tag() }}
-		{{ render_field(applicant_form.fname) }}
-		{{ render_field(applicant_form.lname) }}
-		{{ render_field(applicant_form.email) }}
-		{{ render_field(applicant_form.age) }}
-		{{ render_field(applicant_form.city) }}
-		{{ render_field(applicant_form.state) }}
-		{{ render_field(applicant_form.zip_code) }}
-		{{ render_field(applicant_form.phone_number) }}
-		{{ render_field(applicant_form.password) }}
+		{{ wtf.form_field(applicant_form.fname) }}
+		{{ wtf.form_field(applicant_form.lname) }}
+		{{ wtf.form_field(applicant_form.email) }}
+		{{ wtf.form_field(applicant_form.age) }}
+		{{ wtf.form_field(applicant_form.city) }}
+		{{ wtf.form_field(applicant_form.state) }}
+		{{ wtf.form_field(applicant_form.zip_code) }}
+		{{ wtf.form_field(applicant_form.phone_number) }}
+		{{ wtf.form_field(applicant_form.password) }}
 		<h2> Check all that apply to you </h2>
 		{% if diseases %}
 			{% for disease in diseases %}
