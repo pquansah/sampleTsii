@@ -7,12 +7,13 @@ Enter Information
 {% block content %}
 <body style="background-color: black;">
 	<div class="container-fluid">
-		<div class="row">
-		 <img src="{{ url_for('static', filename='images/trusiipic.PNG') }}" class="img-responsive center">
+		<div class="row"><a href="/">
+		 <img src="{{ url_for('static', filename='images/trusiipic.PNG') }}" class="img-responsive center center-block"></a>
 		</div>
 	</div>
-	<h2> Your Information </h2>
+	<h2><font color="white"> Your Information </font></h2>
 	<form class="form-signin" action="" method="post">
+		<font color="white">
 		{{ applicant_form.hidden_tag() }}
 		{{ wtf.form_field(applicant_form.fname) }}
 		{{ wtf.form_field(applicant_form.lname) }}
@@ -29,7 +30,7 @@ Enter Information
 				<input type="checkbox" name="disease_name" value="{{ disease }}"> {{ disease }}
 			{% endfor %}
 		{% endif %}
-		<br><br><br>
+		</font><br><br><br>
 		{{ applicant_form.submit }}
 	</form>
 </body>
