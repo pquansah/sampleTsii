@@ -1,7 +1,49 @@
-{% extends "base.html" %}
+{% extends "user_base.html" %}
 
 {% block title %}
 Information About You
+{% endblock %}
+
+{% block body %}
+<ul class="nav" id="side-menu">
+	    <li class="sidebar-search">
+	        <div class="input-group custom-search-form">
+	            <input type="text" class="form-control" placeholder="Search...">
+	            <span class="input-group-btn">
+	            <button class="btn btn-default" type="button">
+	                <i class="fa fa-search"></i>
+	            </button>
+	        </span>
+	        </div>
+	        <!-- /input-group -->
+	    </li>
+	    <li>
+	        <a href="{{ url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_names) }}"><i class="fa fa-table fa-fw"></i>Home</a>
+	    </li>
+	    <li>
+	        <a href="{{ url_for('info', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_names) }}"><i class="fa fa-dashboard fa-fw"></i>See Matches</a>
+	    </li>
+	    <li>
+	        <a href="{{ url_for('edit', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_names) }}"><i class="fa fa-bar-chart-o fa-fw"></i>Edit</a>
+	        <!-- /.nav-second-level -->
+	    </li>
+	    
+	    <li>
+	        <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
+	    </li>
+	    <li>
+	        <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements</a>
+	        <!-- /.nav-second-level -->
+	    </li>
+	    <li>
+	        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown</a>
+	        <!-- /.nav-second-level -->
+	    </li>
+	    <li>
+	        <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages</a>
+	        <!-- /.nav-second-level -->
+	    </li>
+	</ul>
 {% endblock %}
 
 {% block content %}
@@ -13,8 +55,10 @@ Information About You
 			<h3> For the disease {{ key }}, here are some people with the same symptoms </h3>
 			<ul>
 				{% for sample in value %}
-					{% if sample['name'] != (firstname + " "  + lastname) %} 
-						<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age'], sampleCity = sample['city'], sampleState = sample['state']) }}"> {{ sample['name'] }} </a></li>
+					{% if sample['name'] != (firstname + " "  + lastname) %}
+						{% if sample['name'] != "" %} 
+							<li><a href="{{ url_for('personalInfo', samplePerson = sample['name'], sampleAge = sample['age'], sampleCity = sample['city'], sampleState = sample['state']) }}"> {{ sample['name'] }} </a></li>
+						{% endif %}
 					{% endif %}
 				{% endfor %}
 			</ul>
