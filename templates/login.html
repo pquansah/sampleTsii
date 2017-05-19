@@ -7,16 +7,36 @@ Login Page
 
 
 {% block content %}
-<h1> Welcome, Please Login </h1>
+<!-- <<<<<<< HEAD -->
+<body style="background-color: black;">
+	<div class="container-fluid">
+		<div class="row">
+		 <div class="span4"></div>
+		 <div class="span4">
+		 <a href="/">
+		 <img class="center-block" src="{{ url_for('static', filename='images/trusiipic.PNG') }}" /></a></div>
+		 <div class="span4"></div>
+		</div>
+	</div>
+	<form class="form-signin" action="" method="post">
+		<!-- Email:<br>
+		<input type="text" name="email"><br>
+		Password:<br>
+		<input type="password" name="password"><br><br>
+		<input type="submit" value="Login">
+====== -->
+<h1><font color="white"> Welcome, Please Login </font></h1>
 {% if message %}
 	<h2 style="color: red;"> {{ message }} </h2>
 {% endif %}
 	<form method="post">
-		
+		<font color="white">
 		{{ login_form.hidden_tag() }}
 		{{ wtf.form_field(login_form.email) }}
 		{{ wtf.form_field(login_form.password) }}
+		</font>
 		{{ login_form.submit }}
-
+<!-- >>>>>>> 77d8b21c3ae2949384c9f5d3ced05cc8cd027746 -->
 	</form>
+</body>
 {% endblock %}
