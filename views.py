@@ -29,6 +29,10 @@ diseases = ['Acne', 'AIDS', 'Alopecia Areata', 'Aneurysm', 'Androgenetic Alopeci
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
 	edit_form = EditForm()
+	firstname = request.args.get('firstname')
+	lastname = request.args.get('lastname')
+	age=request.args.get('age') 
+	diseases_names=request.args.getlist('diseases_names')
 
 	# perfoming updates on user if he or she gives information
 	if edit_form.validate_on_submit():
@@ -41,8 +45,7 @@ def edit():
 		zip_code = edit_form.zip_code.data
 		diseases_name = request.form.getlist('disease_name')
 
-		firstname = request.args.get('firstname')
-		lastname = request.args.get('lastname')
+		
 		
 		diseases_names = request.args.getlist('diseases_names')
 
@@ -81,7 +84,7 @@ def edit():
 		return redirect(url_for('user', firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_name, message=message))
 
 
-	return render_template('edit.html', edit_form=edit_form, diseases=diseases)
+	return render_template('edit.html', edit_form=edit_form, diseases=diseases, firstname=firstname, lastname=lastname, age=age, diseases_names=diseases_names)
 
 # login page, user will need to provide a email and password to login the pages
 @app.route('/login', methods=['GET', 'POST'])
